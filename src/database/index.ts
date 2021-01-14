@@ -3,8 +3,8 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 type user = {
-  name: String,
-  email: String
+  name: string,
+  email: string
 }
 
 export async function createUser (query: user): Promise<void> {
