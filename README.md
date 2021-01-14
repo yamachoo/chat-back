@@ -11,7 +11,7 @@ $ npm run dev
 
 - [x] Express
 - [x] TypeScript
-- [ ] Prisma(PostgreSQL)
+- [x] Prisma(PostgreSQL)
 - [ ] Passport
 - [ ] socket.io
 - [ ] Peer Server
