@@ -6,7 +6,7 @@ import app from '../app'
 import debug from 'debug'
 import http from 'http'
 
-const deg = debug('ts-express-sample:server')
+const deg = debug('chat-back:server')
 
 /**
  * Get port from environment and store in Express.
