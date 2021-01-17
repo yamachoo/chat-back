@@ -2,7 +2,6 @@ import bcrypt from 'bcrypt'
 import express from 'express'
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
-
 import {
   createUser,
   readUsers

@@ -2,9 +2,8 @@
  * Module dependencies.
  */
 
-import debug from 'debug'
 import http from 'http'
-
+import debug from 'debug'
 import app from '../app'
 
 const deg = debug('chat-back:server')
