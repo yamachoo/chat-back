@@ -1,14 +1,9 @@
 import { PrismaClient } from '@prisma/client'
+import { ICreateUserQuery } from '../types'
 
 const prisma = new PrismaClient()
 
-type user = {
-  name: string | null,
-  email: string,
-  password: string
-}
-
-export async function createUser (query: user) {
+export async function createUser (query: ICreateUserQuery) {
   await prisma.users.create({
     data: {
       name: query.name,
