@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt'
-import express, { Express } from 'express'
+import express from 'express'
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 
@@ -30,7 +30,7 @@ async (email, password, done) => {
   return done(null, user)
 }
 ))
-passport.serializeUser((user: Express.User, done) => {
+passport.serializeUser((user, done) => {
   done(null, user)
 })
 passport.deserializeUser((user: Express.User, done) => {

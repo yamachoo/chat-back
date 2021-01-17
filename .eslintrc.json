@@ -16,7 +16,8 @@
     "simple-import-sort"
   ],
   "globals": {
-    "NodeJS": true
+    "NodeJS": true,
+    "Express": true
   },
   "rules": {
     "sort-imports": ["error", { "ignoreDeclarationSort": true }],
