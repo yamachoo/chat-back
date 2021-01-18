@@ -1,5 +1,6 @@
 import path from 'path'
 import cookieParser from 'cookie-parser'
+import cors from 'cors'
 import express from 'express'
 import logger from 'morgan'
 import passport from 'passport'
@@ -20,6 +21,7 @@ app.use(cookieParser())
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(express.static(path.join(__dirname, '../public')))
+app.use(cors())
 
 app.use(ENDPOINT.concat('/'), indexRouter)
 app.use(ENDPOINT.concat('/users'), usersRouter)
