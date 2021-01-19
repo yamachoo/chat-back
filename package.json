@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "ts-node-dev --respawn ./src/bin/www.ts",
+    "dev": "ts-node-dev --respawn ./src/app",
     "lint": "eslint . --ext .ts --fix",
     "build": "rm -rf ./dist/* && tsc",
-    "start": "node ./dist/bin/www",
+    "start": "node ./dist/app",
     "prisma:ins": "prisma introspect",
     "prisma:gen": "prisma generate"
   },
