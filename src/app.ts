@@ -6,6 +6,7 @@ import debug from 'debug'
 import express from 'express'
 import logger from 'morgan'
 import passport from 'passport'
+import { createSocketIO } from './config/socketIo'
 import {
   ENDPOINT_PATH,
   ENDPOINT_VERSION
@@ -33,6 +34,8 @@ app.use(ENDPOINT.concat('/'), indexRouter)
 app.use(ENDPOINT.concat('/users'), usersRouter)
 
 app.set('port', port)
+
+createSocketIO(server)
 
 const onError = (error: NodeJS.ErrnoException) => {
   if (error.syscall !== 'listen') {
