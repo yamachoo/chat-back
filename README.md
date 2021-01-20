@@ -10,10 +10,9 @@ $ npm run dev
 ## todo
 
 - [x] Express
-- [ ] express-validator
 - [x] Prisma(PostgreSQL)
 - [x] Passport
-- [ ] socket.io
+- [x] socket.io
 - [ ] Peer Server
 - [x] TypeScript
 - [x] Eslint + husky + lint-staged
