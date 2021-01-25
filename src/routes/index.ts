@@ -26,7 +26,11 @@ async (email, password, done) => {
     return done(null, false, { message: 'Incorrect password.' })
   }
 
-  return done(null, user)
+  return done(null, {
+    id: user.id,
+    name: user.name,
+    email: user.email
+  })
 }
 ))
 passport.serializeUser((user, done) => {
@@ -53,7 +57,7 @@ router.post('/register',
 router.post('/login',
   passport.authenticate('local'),
   (req, res) => {
-    res.send('Login success!')
+    res.send(req.user)
   }
 )
 
