@@ -13,7 +13,6 @@ import {
 } from './constants'
 import { normalizePort } from './helper'
 import indexRouter from './routes/index'
-import usersRouter from './routes/users'
 
 const app = express()
 const server = http.createServer(app)
@@ -35,7 +34,6 @@ app.get('/*', (req, res) => {
 })
 
 app.use(ENDPOINT.concat('/'), indexRouter)
-app.use(ENDPOINT.concat('/users'), usersRouter)
 
 app.set('port', port)
 
