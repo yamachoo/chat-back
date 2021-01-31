@@ -8,7 +8,8 @@
     "build": "rm -rf ./dist/* && tsc",
     "start": "node ./dist/app",
     "prisma:ins": "prisma introspect",
-    "prisma:gen": "prisma generate"
+    "prisma:gen": "prisma generate",
+    "prisma:dbp": "prisma db push --preview-feature"
   },
   "husky": {
     "hooks": {
