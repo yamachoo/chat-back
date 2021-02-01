@@ -1,12 +1,9 @@
-import type http from 'http'
-import type { Socket } from 'socket.io'
-import { Server } from 'socket.io'
+import type {
+  Server,
+  Socket
+} from 'socket.io'
 
-export function createSocketIO (server: http.Server) {
-  const io = new Server(server, {
-    cors: { origin: '*' }
-  })
-
+export const setupSocketIO = (io: Server) => {
   io.on('connection', (socket: Socket) => {
     socket.broadcast.emit('chat message', '新しいユーザーが参加しました！')
 

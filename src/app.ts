@@ -6,7 +6,8 @@ import debug from 'debug'
 import express from 'express'
 import logger from 'morgan'
 import passport from 'passport'
-import { createSocketIO } from './config/socketIo'
+import { Server } from 'socket.io'
+import { setupSocketIO } from './config/socketIo'
 import {
   ENDPOINT_PATH,
   ENDPOINT_VERSION
@@ -16,6 +17,9 @@ import indexRouter from './routes/index'
 
 const app = express()
 const server = http.createServer(app)
+const io = new Server(server, {
+  cors: { origin: '*' }
+})
 const deg = debug('chat-back:server')
 const port = normalizePort(process.env.PORT || '3000')
 const ENDPOINT = '/'.concat(ENDPOINT_PATH, '/', ENDPOINT_VERSION)
@@ -36,8 +40,6 @@ app.get('/*', (req, res) => {
 app.use(ENDPOINT.concat('/'), indexRouter)
 
 app.set('port', port)
-
-createSocketIO(server)
 
 const onError = (error: NodeJS.ErrnoException) => {
   if (error.syscall !== 'listen') {
@@ -71,3 +73,5 @@ const onListening = () => {
 server.listen(port)
 server.on('error', onError)
 server.on('listening', onListening)
+
+setupSocketIO(io)
