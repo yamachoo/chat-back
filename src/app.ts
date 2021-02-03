@@ -6,7 +6,7 @@ import debug from 'debug'
 import express from 'express'
 import logger from 'morgan'
 import passport from 'passport'
-import { ExpressPeerServer } from 'peer'
+import { PeerServer } from 'peer'
 import { Server } from 'socket.io'
 import { setupPeerServer } from './config/peer'
 import { setupSocketIO } from './config/socketIo'
@@ -22,7 +22,10 @@ const server = http.createServer(app)
 const io = new Server(server, {
   cors: { origin: '*' }
 })
-const peerServer = ExpressPeerServer(server)
+const peerServer = PeerServer({
+  port: 9000,
+  path: '/p2p'
+})
 const deg = debug('chat-back:server')
 const port = normalizePort(process.env.PORT || '3000')
 const ENDPOINT = '/'.concat(ENDPOINT_PATH, '/', ENDPOINT_VERSION)
@@ -40,7 +43,6 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../public', 'index.html'))
 })
 
-app.use('/p2p', peerServer)
 app.use(ENDPOINT.concat('/'), indexRouter)
 
 app.set('port', port)
