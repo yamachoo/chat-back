@@ -8,11 +8,13 @@ import logger from 'morgan'
 import passport from 'passport'
 import { PeerServer } from 'peer'
 import { Server } from 'socket.io'
-import { setupPeerServer } from './config/peer'
-import { setupSocketIO } from './config/socketIo'
+import type { Socket } from 'socket.io'
 import {
   ENDPOINT_PATH,
   ENDPOINT_VERSION
+  ,
+  RECEIVE_MESSAGE,
+  SEND_MESSAGE
 } from './constants'
 import { normalizePort } from './helper'
 import indexRouter from './routes/index'
@@ -80,5 +82,37 @@ server.listen(port)
 server.on('error', onError)
 server.on('listening', onListening)
 
-setupSocketIO(io)
-setupPeerServer(peerServer, io)
+// socket.io
+io.on('connection', (socket: Socket) => {
+  socket.broadcast.emit(RECEIVE_MESSAGE, '新しいユーザーが参加しました！')
+
+  socket.on(SEND_MESSAGE, (message: string) => {
+    socket.broadcast.emit(RECEIVE_MESSAGE, message)
+  })
+
+  socket.on('disconnect', () => {
+    socket.broadcast.emit(RECEIVE_MESSAGE, 'ユーザーが退室しました！')
+  })
+})
+
+// peer
+const keys: any = []
+
+peerServer.on('connection', client => {
+  const key = client.getId()
+
+  keys.push(key)
+
+  io.emit('keys', keys)
+})
+
+peerServer.on('disconnect', client => {
+  const key = client.getId()
+  const index = keys.indexOf(key)
+
+  if (index > -1) {
+    keys.splice(index, 1)
+  }
+
+  io.emit('keys', keys)
+})
